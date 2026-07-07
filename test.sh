@@ -145,7 +145,6 @@ install_x-ui() {
     
     # 执行 SSL 证书申请
     install_acme
-
     systemctl daemon-reload
     (crontab -l 2>/dev/null; echo "0 10 * * 6 x-ui restart >> /home/user/cron.log 2>&1") | crontab -
     systemctl enable x-ui
