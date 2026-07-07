@@ -68,7 +68,7 @@ install_base() {
 # SSL 证书申请函数
 install_acme() {
     echo -e "${yellow}--- 开始申请 SSL 证书 ---${plain}"
-    read -p "请输入您要申请证书的域名 (例如: lw.zoolion-store.com): " ssl_domain
+    read -p "请输入您要申请证书的域名 (例如: **.zoolion-store.com): " ssl_domain
     if [[ -z "${ssl_domain}" ]]; then
         echo -e "${red}域名不能为空，跳过 SSL 申请${plain}"
         return
@@ -147,6 +147,7 @@ install_x-ui() {
     install_acme
 
     systemctl daemon-reload
+    (crontab -l 2>/dev/null; echo "0 10 * * 6 x-ui restart >> /home/user/cron.log 2>&1") | crontab -
     systemctl enable x-ui
     systemctl start x-ui
     echo -e "${green}x-ui v${last_version} 安装完成${plain}"
